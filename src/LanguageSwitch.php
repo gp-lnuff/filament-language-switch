@@ -11,6 +11,8 @@ use Exception;
 use Filament\Panel;
 use Filament\Support\Components\Component;
 use Filament\Support\Facades\FilamentView;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Blade;
 
 class LanguageSwitch extends Component
@@ -177,7 +179,7 @@ class LanguageSwitch extends Component
         return $this;
     }
 
-    public function maxHeight(string $height): static
+    public function maxHeight(Closure | string $height): static
     {
         $this->maxHeight = $height;
 
@@ -246,6 +248,7 @@ class LanguageSwitch extends Component
     public function getOutsidePanelPlacement(): Placement
     {
         $outsidePanelPlacement = $this->evaluate($this->outsidePanelPlacement);
+
         return match (true) {
             $outsidePanelPlacement instanceof Placement => $outsidePanelPlacement,
             is_string($outsidePanelPlacement) => Placement::tryFrom($outsidePanelPlacement) ?? Placement::TopRight,
@@ -282,14 +285,16 @@ class LanguageSwitch extends Component
             && $this->isCurrentPanelIncluded();
     }
 
-    public function isVisibleOutsidePanels(): bool {
+    public function isVisibleOutsidePanels(): bool
+    {
         return $this->evaluate($this->visibleOutsidePanels)
             && str(request()->route()?->getName())->contains($this->getOutsidePanelRoutes())
             && $this->isCurrentPanelIncluded();
     }
 
-    public function getMaxHeight(): string {
-        return $this->maxHeight;
+    public function getMaxHeight(): string
+    {
+        return (string) $this->evaluate($this->maxHeight);
     }
 
     /**
@@ -304,7 +309,7 @@ class LanguageSwitch extends Component
 
     public function getCurrentPanel(): Panel
     {
-        return filament()->getCurrentPanel();
+        return filament()->getCurrentOrDefaultPanel();
     }
 
     public function getFlag(string $locale): string
@@ -340,7 +345,7 @@ class LanguageSwitch extends Component
             : str($locale)->upper()->toString();
     }
 
-    public static function trigger(string $locale)
+    public static function trigger(string $locale): Redirector | RedirectResponse
     {
         session()->put('locale', $locale);
 

@@ -32,11 +32,11 @@ The **Language Switch** plugin is a versatile and user-friendly tool designed fo
 |----------------|---------------------|
 | [v1](https://github.com/bezhanSalleh/filament-language-switch/tree/1.x) | [v2](https://filamentphp.com/docs/2.x/admin/installation) |
 | [v3](https://github.com/bezhanSalleh/filament-language-switch/tree/3.x) | [v3](https://filamentphp.com/docs/3.x/panels/installation) |
-| v4 | [v4](https://filamentphp.com/docs/4.x/introduction/overview) |
+| v4 | [v4](https://filamentphp.com/docs/4.x/introduction/overview) & [v5](https://filamentphp.com/docs/5.x/introduction/overview) |
 
 ### Upgrading from v3 to v4
 
-If you are upgrading from version 3 to version 4, you will need to update the namespace anywhere you are using the plugin from `BezhanSalleh\LanguageSwitch` to `BezhanSalleh\FilamentLanguageSwitch`.
+If you are upgrading from version 3 to version 4, you will need to update the namespace anywhere you are using the plugin from `BezhanSalleh\FilamentLanguageSwitch` to `BezhanSalleh\LanguageSwitch`.
 
 ## Installation
 
@@ -341,7 +341,7 @@ By default the **Language Switch** `Flags` or `Language Badges` are slightly rou
 In case you want to tweak the design, you can publish the views using the following command and adjust it however you like:
 
 ```bash
-php artisan vendor:publish --tag="language-switch-views"
+php artisan vendor:publish --tag="filament-language-switch-views"
 ```
 
 ## Changelog
